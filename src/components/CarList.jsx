@@ -36,8 +36,6 @@ export default function CarList() {
         { headerName: 'Model', field: 'model', sortable: true, filter: true },
         { headerName: 'Color', field: 'color', sortable: true, filter: true },
         { headerName: 'Fuel', field: 'fuel', sortable: true, filter: true },
-        { headerName: 'Year', field: 'year', sortable: true, filter: true },
-        { headerName: 'Price', field: 'price', sortable: true, filter: true },
         { cellRenderer: params => <EditCar updateCar={updateCar} params={params}/>, width: 120},
         {
             cellRenderer: (params) =>
@@ -71,7 +69,6 @@ export default function CarList() {
     const deleteCar = (params) => {
         // console.log(params.data);
         console.log("params.data._links.car.href = " + params.data._links.car.href);
-        console.log("id = " + gridRef.current.getSelectedNodes()[0].id)
         if (window.confirm("Are you sure?")) {
             fetch(params.data._links.car.href, { method: 'DELETE' })
                 .then(response => {
@@ -101,7 +98,7 @@ export default function CarList() {
             .then(response => {
                 console.log("response" + response);
                 if (response.ok) {
-                    msgSnackbar('Auto lisätty onnistuneesti');
+                    setMgsSnackbar('Auto lisätty onnistuneesti');
                     setOpenSnackbar(true);
                     return response.json;
                 } else {
@@ -117,14 +114,14 @@ export default function CarList() {
     const updateCar = (URL, updatedCar) => {
         console.log("Carlist: updatedCar");
         fetch(URL, {
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(car)
+            body: JSON.stringify(updatedCar)
         })
             .then(response => {
                 console.log("response" + response);
                 if (response.ok) {
-                    msgSnackbar('Auto PÄIVITETTY onnistuneesti');
+                    setMgsSnackbar('Auto PÄIVITETTY onnistuneesti');
                     setOpenSnackbar(true);
                     return response.json;
                 } else {
@@ -142,17 +139,14 @@ export default function CarList() {
     return (
         <>
             <AddCar addCar={addCar} />
-            <div className="ag-theme-material" style={{ width: '800px', height: '100%', margin: 'auto'}}>
+            <div className="ag-theme-material" style={{ width: 1000, height: 500 }}>
                 <AgGridReact
                     rowData={cars}
                     columnDefs={colums}
-                    animateRows={true}
-                    rowSelection="single"
                     pagination={true}
                     paginationPageSize={10}
                     paginationPageSizeSelector={[10, 30, 50]}
-                    ref={gridRef}
-                    onGridReady={params => gridRef.current = params.api}
+                    
                 />
                 <Snackbar
                     open={openSnackbar}

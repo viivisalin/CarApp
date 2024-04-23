@@ -33,7 +33,7 @@ export default function EditCar(props) {
 
     const handleSave = () => {
         console.log("EditCar: update car info");
-        props.updateCar(props.params.data._links_car.href, car);
+        props.updateCar(props.params.data._links.car.href, car);
         setOpen(false);
     }
 
