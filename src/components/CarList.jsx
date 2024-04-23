@@ -32,10 +32,12 @@ export default function CarList() {
     */
 
     const colums = [
-        { headerName: 'Brand', field: 'brand', sortable: true, filter: true },
-        { headerName: 'Model', field: 'model', sortable: true, filter: true },
-        { headerName: 'Color', field: 'color', sortable: true, filter: true },
-        { headerName: 'Fuel', field: 'fuel', sortable: true, filter: true },
+        { headerName: 'Brand', field: 'brand', sortable: true, filter: true, flex: 1 },
+        { headerName: 'Model', field: 'model', sortable: true, filter: true, flex: 1 },
+        { headerName: 'Color', field: 'color', sortable: true, filter: true, flex: 1 },
+        { headerName: 'Fuel', field: 'fuel', sortable: true, filter: true, flex: 1 },
+        { headerName: 'Year', field: 'year', sortable: true, filter: true, flex: 1 },
+        { headerName: 'Price', field: 'price', sortable: true, filter: true, flex: 1 },
         { cellRenderer: params => <EditCar updateCar={updateCar} params={params}/>, width: 120},
         {
             cellRenderer: (params) =>
